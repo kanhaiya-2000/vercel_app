@@ -12,10 +12,10 @@ import Item from "./components/Item";
 // import InputLabel from '@material-ui/core/InputLabel';
 import firebase from './Firebase';
 import NewModal from "./components/Modal";
-import Loader from "./components/Loader";
+
 
 import EditCreateModalChild from "./components/ModalChildren";
-import { deleteModel } from "mongoose";
+
 
 
 function App() {
@@ -168,7 +168,7 @@ function App() {
     EditItem(dataObject,key);
   }
   const [isModal, setModal] = useState(false);
-  const [children, setChildren] = useState(<Loader msg="Loading data..." />);
+  
   const closeModal = () => {
     setModal(false);
   }

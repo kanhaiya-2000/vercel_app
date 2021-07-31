@@ -63,8 +63,7 @@ const EditCreateModalChild = ({value,InputEvent,callback}) => {
           <div style={{ width: '100%', borderBottom: '1px solid #b5b5b5', fontWeight: "bold", textAlign: "left", padding: "15px", fontSize: "12px",marginBottom:"10px" }}>Stock details</div>
           <div className="stock_div">
             <Select
-              label="Unit"
-              value="none"
+              label="Unit"              
               value={value.stockUnit}
               name="stockUnit"
               onChange={InputEvent}
