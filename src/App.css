@@ -1,0 +1,192 @@
+.low_stock_switch{
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.savebtn {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.item{
+	display: flex;	
+	width: 100%;
+  margin-top: 20px;	
+  align-items: center;
+}
+
+.item div,.item_header div{
+ width:150px; 
+ text-align: center;
+}
+
+.container {
+	width: calc(100% - 100px);
+	margin-left: 50px;
+	margin-top: 100px;
+  border:1px solid #c8c8c8;
+  padding:20px;
+}
+
+.item_header{
+  display: flex;	
+  font-weight:bold;
+  font-size:14px;
+  align-items: center;
+	width: 100%;
+}
+
+.app_controller {
+	display: flex;
+	justify-content: space-around;
+	width: 800px;
+	right: 0;
+	position: absolute;
+	top: 50px;
+	text-transform: uppercase;
+	font-size: 14px;
+	cursor: pointer;
+	height: 30px;
+	align-items: center;
+}
+
+#button1 svg{
+  display:flex;
+  color:gray;
+}
+
+.MuiSvgIcon-root {
+	display: flex;
+	font-size: 20px !important;	
+	margin-right: 10px;
+	margin-top: -3px;
+}
+
+button{
+  cursor: pointer;
+}
+
+.MuiSelect-select.MuiSelect-select {
+	padding-right: 24px;
+	font-size: 14px;
+	margin-right: 10px;
+}
+
+.MuiButton-root-my{
+  color:rgba(26, 28, 130, 0.87) !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  padding:5px 8px !important;
+}
+
+.deletesvg{
+  color: gray;
+}
+
+.newmodal-container{	
+	height: 100%;
+	position: fixed;
+  top:0;
+  bottom:0;
+	background: rgba(0,0,0,0.5);
+	width: 100%;
+	z-index: 20;
+}
+
+.newmodal {
+	transform: none;
+	width: 800px;
+	height: 500px;
+	background: white;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+  margin-top:50px;
+  padding: 10px 20px;
+}
+
+.price_detail_div {
+  color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.newmodal-top{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;	
+  height:50px;
+	margin-top: 0;	
+}
+
+.loopicon{
+  height:100%;
+  margin-top:100px;
+  animation: spin 1.5s linear infinite;
+  margin-right:20px;
+}
+
+.newmodal-top {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #a5a2a2;
+}
+
+.newmodal-top-title{
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.editcreatemodal{
+  display:flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+
+.general_detail {
+  width: 30%;  
+}
+
+.stock_details{
+  width:60%
+}
+
+.detail_input,.detail_input_2{
+  width:100%;
+  margin-left:20px !important;
+  margin-bottom:10px !important;
+  text-align: left;
+}
+
+.detail_input_2{
+  width:40%;
+}
+
+.stock_div{
+  display: flex;
+  align-items: center;
+  text-align: left;
+  justify-content: space-around;
+}
+
+.general_detail .MuiSelect-select,.stock_details .MuiSelect-select{
+  color:gray;
+  font-size:16px;
+}
+
+@keyframes spin {
+  0%{
+    transform:rotate(0deg) scale(2.5) ;
+  }
+  50%{
+    transform: rotate(180deg) scale(2);
+  }
+  100%{
+    transform: rotate(359deg) scale(2.5);
+  }
+}
+
