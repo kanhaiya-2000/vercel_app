@@ -67,7 +67,7 @@ function App() {
       });
   }
 
-  const EditItem = (data, id) => {
+  const EditItem = (data, id) => { 
     
     firebaseref.current.doc(id).set(data).then((docRef) => {
       //close EditItem modal
