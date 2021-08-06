@@ -10,7 +10,17 @@
   display: flex;
   flex-direction: row-reverse;
 }
-
+.loop{
+  position:fixed;
+  top:100px;
+  left:calc(50% - 22px);
+  width:44px;
+  height:100px;
+}
+.loadertext {
+	margin-top: 20px;
+	margin-left: -20px;
+}
 .item{
 	display: flex;	
 	width: 100%;

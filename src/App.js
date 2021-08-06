@@ -15,6 +15,7 @@ import NewModal from "./components/Modal";
 
 
 import EditCreateModalChild from "./components/ModalChildren";
+import Loader from "./components/Loader";
 
 
 
@@ -26,12 +27,13 @@ function App() {
   const [key, setKey] = useState("")
   const [currentChoice,setCurrentChoice] = useState("all");
   const [selected, setSelected] = useState([])
+  const[loading,setLoading] = useState(true)
   const [value, setValue] = useState({
     itemName: "",
     itemCode: "",
     category: "",
     stockQuantity: "",
-    stockUnit: "",
+    stockUnit: "PIECES(PCS)",
     addedDate: "",
     stockValue: "",
     price: "",
@@ -44,7 +46,8 @@ function App() {
   })
 
   const FetchInventories = (querySnapshot) => {
-    const Inventories = [];
+    let Inventories = [];
+    console.log("calling fetch")
     querySnapshot.forEach((doc) => {
 
       Inventories.push({
@@ -52,9 +55,13 @@ function App() {
         data: doc.data(), // DocumentSnapshot        
       });
     });
-    //console.log(Inventories)
+    ////console.log(Inventories)
+    Inventories = Inventories.filter((value,index,self)=>{
+      return index===(self.map(x=>x.key)).indexOf(value.key)
+    })
     setInventories(Inventories);
     setAllInventories(Inventories);
+    setLoading(false);
   }
 
   const addItem = (data) => {
@@ -63,28 +70,29 @@ function App() {
       //close addItem modal
     })
       .catch((error) => {
-        console.error("Error adding document: ", error);
+        //console.error("Error adding document: ", error);
       });
   }
 
   const EditItem = (data, id) => { 
+    //console.log(id);
     
     firebaseref.current.doc(id).set(data).then((docRef) => {
       //close EditItem modal
-      console.log("Editing", docRef)
+      //console.log("Editing", docRef)
     })
       .catch((error) => {
-        console.error("Error adding document: ", error);
+        //console.error("Error adding document: ", error);
       });
   }
 
   const DeleteItem = (id) => {
 
     firebaseref.current.doc(id).delete().then(() => {
-      console.log("Document successfully deleted!");
+      //console.log("Document successfully deleted!");
       //close deleteModal
     }).catch((error) => {
-      console.error("Error removing document: ", error);
+      //console.error("Error removing document: ", error);
     });
 
   }
@@ -93,7 +101,7 @@ function App() {
 
     firebaseref.current.onSnapshot(FetchInventories);
 
-  }, [firebaseref])
+  }, [])
 
   const handleChange = (e) => {
     setCategory(e.target.value);
@@ -109,7 +117,7 @@ function App() {
       datatofit = e.target.checked;
     }
     await setValue({ ...value, [e.target.name]: datatofit });
-    console.log(value)
+    //console.log(value)
   }
 
   const FilterInventories = (type)=>{
@@ -123,7 +131,7 @@ function App() {
           setInventories(allInventories.filter(x=>x.data.category===type))
           break;
         case "Low stock":
-          setInventories(allInventories.filter(x=>x.data.lowStockValue>x.data.stockQuantity))
+          setInventories(allInventories.filter(x=>x.data.EnableLowStockWarning&&(x.data.lowStockValue>x.data.stockQuantity)))
           break;          
         default:
           setInventories(allInventories)
@@ -140,7 +148,7 @@ function App() {
       itemCode: "",
       category: "",
       stockQuantity: "",
-      stockUnit: "",
+      stockUnit: "PIECES(PCS)",
       addedDate: "",
       stockValue: "",
       price: "",
@@ -153,7 +161,7 @@ function App() {
     });
     if (type === "edit") {
       setKey(key);
-      const data = inventories.filter(x => x.key = key)
+      const data = inventories.filter(x => x.key === key)
       setValue(data[0].data);
     }
   }
@@ -161,11 +169,20 @@ function App() {
   const adjustStock = (key) => {
     
     const data = window.prompt("Enter the value(+ or -) by which you want the stock to get updated?");
-    console.log(Number(data), key)
+    //console.log(Number(data), key)
+    if(!data){
+      return;
+    }
     const inventory = inventories.filter(x=>x.key===key);
     const dataObject = inventory[0].data;
-    dataObject.stockQuantity = Number(dataObject.stockQuantity) + Number(data);
-    EditItem(dataObject,key);
+    const newQuantity = Number(dataObject.stockQuantity) + Number(data);
+    if(newQuantity<0){
+      return window.alert("Your total stock cannot be negative")
+    }
+    else{
+      dataObject.stockQuantity = newQuantity;
+      EditItem(dataObject,key);
+    }
   }
   const [isModal, setModal] = useState(false);
   
@@ -174,7 +191,7 @@ function App() {
   }
 
   const saveCallback = ()=>{
-      console.log("executing callback ...");
+      //console.log("executing callback ...");
       closeModal();
       if(key){
         EditItem(value,key)
@@ -186,7 +203,7 @@ function App() {
 
   const toggleDeletionList = (id)=>{
     const index = selected.indexOf(id);
-    console.log(selected,index);
+    //console.log(selected,index);
     if(index>-1){
       setSelected(selected.filter(x=>x!==id))
     }
@@ -204,7 +221,12 @@ function App() {
       selected.forEach(x=>{
         DeleteItem(x);
       })
+      setSelected([]);
     }
+  }
+
+  if(loading){
+    return <Loader/>
   }
   return (
     <div className="App">
@@ -231,7 +253,7 @@ function App() {
       </div>
       <div className="container">
         <div className="item_header">
-          <input type="checkbox" />
+          <input type="checkbox" checked={false}/>
           <div>Item Name</div>
           <div>Item Code</div>
           <div>Category</div>

@@ -4,9 +4,9 @@ import LoopIcon from '@material-ui/icons/Loop';
 const Loader = ({msg})=>{
 
     return (
-        <div>
+        <div className="loop">
         <LoopIcon className="loopicon"/>
-            {msg||"Loading..."}
+            <div className="loadertext">{msg||"Loading..."}</div>
         </div>
     )
 }
