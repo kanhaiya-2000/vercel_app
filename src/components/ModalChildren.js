@@ -69,7 +69,8 @@ const EditCreateModalChild = ({value,InputEvent,callback}) => {
               onChange={InputEvent}
               style={{ marginTop: "10px" }}
               className="detail_input_2"
-            >              
+            >
+              <MenuItem value={"none"}>None</MenuItem>
               <MenuItem value={"FEET(FT)"}>FEET(FT)</MenuItem>
               <MenuItem value={"INCHES(IN)"}>INCHES(IN)</MenuItem>
               <MenuItem value={"UNITS(UNT)"}>UNITS(UNT)</MenuItem>
@@ -89,7 +90,7 @@ const EditCreateModalChild = ({value,InputEvent,callback}) => {
             <TextField
               type="date"
               className="detail_input_2"
-              value={value.addedDate}
+              default={value.addedDate}
               name="addedDate"
               onChange={InputEvent}
               
@@ -106,15 +107,14 @@ const EditCreateModalChild = ({value,InputEvent,callback}) => {
                 onChange={InputEvent}
               />
             </div>
-            {value.EnableLowStockWarning&&<TextField
+            <TextField
               label="Low stock value"
               className="detail_input_2"
               value={value.lowStockValue}
               name="lowStockValue"
               onChange={InputEvent}
-            />}
+            />
           </div>
-            
 
           <div style={{ width: '100%', borderBottom: '1px solid #b5b5b5', fontWeight: "bold", textAlign: "left", padding: "15px", fontSize: "12px", marginBottom: "20px" }}>Price details</div>
           <div className="price_detail_div">
@@ -145,11 +145,11 @@ const EditCreateModalChild = ({value,InputEvent,callback}) => {
               style={{ marginTop: "10px" }}
               className="detail_input"
             >
-              <MenuItem value={"none"}>None</MenuItem>              
+              <MenuItem value={"none"}>None</MenuItem>
+              <MenuItem value={0}>GST @0%</MenuItem>
               <MenuItem value={0.1}>GST @0.1%</MenuItem>
               <MenuItem value={1}>GST @1%</MenuItem>
               <MenuItem value={5}>GST @5%</MenuItem>
-              <MenuItem value={10}>GST @10%</MenuItem>
             </Select>
           </div>
           <div className="savebtn"><Button variant="contained" color="primary" onClick={callback}>SAVE</Button></div>

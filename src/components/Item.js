@@ -12,7 +12,7 @@ const Item = ({ data, openModal,adjustStock,id,toggleDeletionList }) => {
     }
     const showWarning = data.EnableLowStockWarning&&(Number(data.stockQuantity)<Number(data.lowStockValue));
     return (
-        <div className="item" id={id}>
+        <div className="item">
             <input type="checkbox" onClick={()=>toggleDeletionList(id)}/>
             <div>{data.itemName}</div>
             <div>{data.itemCode}</div>
